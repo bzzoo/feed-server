@@ -13,7 +13,7 @@ public class Post {
     private final PositiveIntegerCounter likeCount;
     private PostPublicationStatus status;
 
-    public Post(Long id, User author, Content content) {
+    public Post(Long id, User author, Content content, PostPublicationStatus status) {
         if (author == null) {
             throw new IllegalArgumentException();
         }
@@ -22,7 +22,7 @@ public class Post {
         this.author = author;
         this.content = content;
         this.likeCount = new PositiveIntegerCounter();
-        this.status = PostPublicationStatus.PUBLIC;
+        this.status = status;
     }
 
     public void like(User user) {

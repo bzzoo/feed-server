@@ -36,7 +36,7 @@ public class Comment {
         likeCount.decrease();
     }
 
-    public void updateContent(User user, String contentText) {
+    public void updateComment(User user, String contentText) {
         if (this.author.equals(user)) {
             throw new IllegalArgumentException();
         }
