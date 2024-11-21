@@ -10,16 +10,20 @@ import com.example.feed.post.domain.content.Content;
 import com.example.feed.post.domain.content.PostContent;
 import com.example.feed.user.application.UserService;
 import com.example.feed.user.domain.User;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PostService {
 
     private final UserService userService;
     private final PostRepository postRepository;
     private final LikeRepository likeRepository;
 
-    public PostService(UserService userService, PostRepository postRepository) {
+    public PostService(UserService userService, PostRepository postRepository,
+            LikeRepository likeRepository) {
         this.userService = userService;
         this.postRepository = postRepository;
+        this.likeRepository = likeRepository;
     }
 
     public Post createPost(CreatePostRequestDto dto) {
@@ -29,8 +33,8 @@ public class PostService {
         return postRepository.save(post);
     }
 
-    public Post updatePost(UpdatePostRequestDto dto) {
-        Post post = getPost(dto.postId());
+    public Post updatePost(Long postId, UpdatePostRequestDto dto) {
+        Post post = getPost(postId);
         User author = userService.getUser(dto.userId());
 
         post.updatePost(author, dto.content(), dto.status());
@@ -53,15 +57,13 @@ public class PostService {
         Post post = getPost(dto.targetId());
         User user = userService.getUser(dto.userId());
 
-        if(!likeRepository.checkLike(post, user)){
+        if(likeRepository.checkLike(post, user)){
             post.unlike();
             likeRepository.unlike(post, user);
         }
     }
 
     public Post getPost(Long id) {
-        return postRepository
-                .findById(id)
-                .orElseThrow(IllegalArgumentException::new);
+        return postRepository.findById(id);
     }
 }

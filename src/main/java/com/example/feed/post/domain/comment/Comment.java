@@ -4,7 +4,13 @@ import com.example.feed.common.domain.PositiveIntegerCounter;
 import com.example.feed.post.domain.Post;
 import com.example.feed.post.domain.content.Content;
 import com.example.feed.user.domain.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 
+@AllArgsConstructor
+@Builder
+@Getter
 public class Comment {
 
     private final Long id;
@@ -41,5 +47,13 @@ public class Comment {
             throw new IllegalArgumentException();
         }
         this.content.updateContent(contentText);
+    }
+
+    public int likeCount() {
+        return likeCount.getCount();
+    }
+
+    public String getContent() {
+        return content.getContentText();
     }
 }
