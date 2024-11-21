@@ -3,7 +3,9 @@ package com.example.feed.user.application;
 import com.example.feed.user.application.dto.FollowUserRequestDto;
 import com.example.feed.user.application.interfaces.UserRelationRepository;
 import com.example.feed.user.domain.User;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserRelationService {
 
     private final UserService userService;

@@ -2,7 +2,13 @@ package com.example.feed.user.domain;
 
 import com.example.feed.common.domain.PositiveIntegerCounter;
 import java.util.Objects;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 
+@AllArgsConstructor
+@Builder
+@Getter
 public class User {
 
     private final Long id;
@@ -58,5 +64,21 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public String getName() {
+        return info.getName();
+    }
+
+    public String getProfileImage() {
+        return info.getName();
+    }
+
+    public int followingCount() {
+        return followingCount.getCount();
+    }
+
+    public int followerCount() {
+        return followerCount.getCount();
     }
 }

@@ -4,7 +4,13 @@ import com.example.feed.common.domain.PositiveIntegerCounter;
 import com.example.feed.post.domain.content.Content;
 import com.example.feed.post.domain.content.PostPublicationStatus;
 import com.example.feed.user.domain.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 
+@AllArgsConstructor
+@Builder
+@Getter
 public class Post {
 
     private final Long id;
@@ -45,4 +51,11 @@ public class Post {
         this.content.updateContent(updatedContent);
     }
 
+    public int likeCount() {
+        return likeCount.getCount();
+    }
+
+    public String getContent() {
+        return content.getContentText();
+    }
 }

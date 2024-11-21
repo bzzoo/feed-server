@@ -12,4 +12,12 @@ public class UserInfo {
         this.name = name;
         this.profileUrl = profileUrl;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getProfileUrl() {
+        return profileUrl;
+    }
 }
