@@ -1,5 +1,6 @@
 package com.example.feed.user.repository;
 
+import com.example.feed.post.repository.post_queue.UserPostQueueCommandRepository;
 import com.example.feed.user.application.interfaces.UserRelationRepository;
 import com.example.feed.user.domain.User;
 import com.example.feed.user.repository.entity.UserEntity;
@@ -18,6 +19,7 @@ public class UserRelationRepositoryImpl implements UserRelationRepository {
 
     private final JpaUserRelationRepository jpaUserRelationRepository;
     private final JpaUserRepository jpaUserRepository;
+    private final UserPostQueueCommandRepository userPostQueueCommandRepository;
 
     @Override
     public boolean isAlreadyFollow(User user, User targetUser) {
@@ -31,6 +33,7 @@ public class UserRelationRepositoryImpl implements UserRelationRepository {
         UserRelationEntity entity = new UserRelationEntity(user.getId(), targetUser.getId());
         jpaUserRelationRepository.save(entity);
         jpaUserRepository.saveAll(List.of(new UserEntity(user), new UserEntity(targetUser)));
+        userPostQueueCommandRepository.save(user.getId(), targetUser.getId());
     }
 
     @Override
@@ -39,5 +42,6 @@ public class UserRelationRepositoryImpl implements UserRelationRepository {
         UserRelationIdEntity id = new UserRelationIdEntity(user.getId(), targetUser.getId());
         jpaUserRelationRepository.deleteById(id);
         jpaUserRepository.saveAll(List.of(new UserEntity(user), new UserEntity(targetUser)));
+        userPostQueueCommandRepository.deleteUnfollowPost(user.getId(), targetUser.getId());
     }
 }

@@ -6,6 +6,7 @@ import com.example.feed.post.domain.Post;
 import com.example.feed.post.domain.content.PostContent;
 import com.example.feed.post.domain.content.PostPublicationStatus;
 import com.example.feed.user.repository.entity.UserEntity;
+import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
@@ -19,6 +20,7 @@ import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -40,6 +42,9 @@ public class PostEntity extends TimeBaseEntity {
 
     private String content;
     private Integer likeCount;
+
+    @ColumnDefault("0")
+    private Integer commentCount;
 
     public PostEntity(Post post) {
         this.id = post.getId();
