@@ -17,9 +17,9 @@ public class FeedController {
 
     private final UserPostQueueQueryRepository queueQueryRepository;
 
-    @GetMapping("/{userId")
+    @GetMapping("/{userId}")
     public Response<List<GetPostContentResponseDto>> getPostFeed(
-            @PathVariable Long userId,
+            @PathVariable(name = "userId") Long userId,
             Long lastPostId
     ) {
         List<GetPostContentResponseDto> postList = queueQueryRepository.getPostList(userId, lastPostId);

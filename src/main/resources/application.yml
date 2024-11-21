@@ -13,3 +13,5 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
     open-in-view: false
+
+secret-key: dsklfjsdlkfjlsdkdfslsdklfj3o4ifndslncvd1!!sdf
