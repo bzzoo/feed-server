@@ -3,9 +3,7 @@ package com.example.feed.post.repository;
 import com.example.feed.post.application.interfaces.LikeRepository;
 import com.example.feed.post.domain.Post;
 import com.example.feed.post.domain.comment.Comment;
-import com.example.feed.post.repository.entity.CommentEntity;
 import com.example.feed.post.repository.entity.LikeEntity;
-import com.example.feed.post.repository.entity.PostEntity;
 import com.example.feed.post.repository.jpa.JpaCommentRepository;
 import com.example.feed.post.repository.jpa.JpaLikeRepository;
 import com.example.feed.post.repository.jpa.JpaPostRepository;
@@ -38,14 +36,14 @@ public class LikeRepositoryImpl implements LikeRepository {
     public void like(Post post, User user) {
         LikeEntity entity = new LikeEntity(post, user);
         entityManager.persist(entity);
-        jpaPostRepository.updateLikeCount(new PostEntity(post));
+        jpaPostRepository.updateLikeCount(post.getId(), 1);
     }
 
     @Override
     public void unlike(Post post, User user) {
         LikeEntity entity = new LikeEntity(post, user);
         jpaLikeRepository.deleteById(entity.getId());
-        jpaPostRepository.updateLikeCount(new PostEntity(post));
+        jpaPostRepository.updateLikeCount(post.getId(), -1);
     }
 
     @Override
@@ -59,13 +57,13 @@ public class LikeRepositoryImpl implements LikeRepository {
     public void like(Comment comment, User user) {
         LikeEntity entity = new LikeEntity(comment, user);
         entityManager.persist(entity);
-        jpaCommentRepository.updateLikeCount(new CommentEntity(comment));
+        jpaCommentRepository.updateLikeCount(comment.getId(), 1);
     }
 
     @Override
     public void unlike(Comment comment, User user) {
         LikeEntity entity = new LikeEntity(comment, user);
         jpaLikeRepository.deleteById(entity.getId());
-        jpaCommentRepository.updateLikeCount(new CommentEntity(comment));
+        jpaCommentRepository.updateLikeCount(comment.getId(), -1);
     }
 }
