@@ -37,7 +37,7 @@ public class PostEntity extends TimeBaseEntity {
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private UserEntity author;
 
-    @Convert(converter = PostPublicationStatus.class)
+    @Convert(converter = PostPublicationStatusConverter.class)
     private PostPublicationStatus status;
 
     private String content;
